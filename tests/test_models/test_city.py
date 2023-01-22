@@ -24,14 +24,16 @@ class TestCityDocs(unittest.TestCase):
     def setUpClass(cls):
         """Set up for the doc tests"""
         cls.city_f = inspect.getmembers(City, inspect.isfunction)
-    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
+
+    @unittest.skipIf(check_pep8 is False, "pep8 module not installed")
     def test_pep8_conformance_city(self):
         """Test that models/city.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['models/city.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
-    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
+
+    @unittest.skipIf(check_pep8 is False, "pep8 module not installed")
     def test_pep8_conformance_test_city(self):
         """Test that tests/test_models/test_city.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)

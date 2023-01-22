@@ -24,7 +24,7 @@ class TestBaseModelDocs(unittest.TestCase):
         """Set up for docstring tests"""
         self.base_funcs = inspect.getmembers(BaseModel, inspect.isfunction)
 
-    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
+    @unittest.skipIf(check_pep8 is False, "pep8 module not installed")
     def test_pep8_conformance(self):
         """Test that models/base_model.py conforms to PEP8."""
         for path in ['models/base_model.py',

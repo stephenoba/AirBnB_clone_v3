@@ -35,7 +35,7 @@ class TestDBStorageDocs(unittest.TestCase):
         """Set up for the doc tests"""
         cls.dbs_f = inspect.getmembers(DBStorage, inspect.isfunction)
 
-    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
+    @unittest.skipIf(check_pep8 is False, "pep8 module not installed")
     def test_pep8_conformance_db_storage(self):
         """Test that models/engine/db_storage.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
@@ -43,7 +43,7 @@ class TestDBStorageDocs(unittest.TestCase):
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
-    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
+    @unittest.skipIf(check_pep8 is False, "pep8 module not installed")
     def test_pep8_conformance_test_db_storage(self):
         """Test tests/test_models/test_db_storage.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)

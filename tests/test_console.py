@@ -17,7 +17,7 @@ except ModuleNotFoundError:
 
 class TestConsoleDocs(unittest.TestCase):
     """Class for testing documentation of the console"""
-    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
+    @unittest.skipIf(check_pep8 is False, "pep8 module not installed")
     def test_pep8_conformance_console(self):
         """Test that console.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
@@ -25,7 +25,7 @@ class TestConsoleDocs(unittest.TestCase):
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
-    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
+    @unittest.skipIf(check_pep8 is False, "pep8 module not installed")
     def test_pep8_conformance_test_console(self):
         """Test that tests/test_console.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
