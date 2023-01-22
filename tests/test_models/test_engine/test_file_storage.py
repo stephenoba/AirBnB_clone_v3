@@ -16,11 +16,16 @@ from models.state import State
 from models.user import User
 import json
 import os
-import pep8
 import unittest
 FileStorage = file_storage.FileStorage
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
+
+check_pep8 = True
+try:
+    import pep8
+except ModuleNotFoundError:
+    check_pep8 = False
 
 
 class TestFileStorageDocs(unittest.TestCase):
@@ -30,6 +35,7 @@ class TestFileStorageDocs(unittest.TestCase):
         """Set up for the doc tests"""
         cls.fs_f = inspect.getmembers(FileStorage, inspect.isfunction)
 
+    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
     def test_pep8_conformance_file_storage(self):
         """Test that models/engine/file_storage.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
@@ -37,6 +43,7 @@ class TestFileStorageDocs(unittest.TestCase):
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
+    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
     def test_pep8_conformance_test_file_storage(self):
         """Test tests/test_models/test_file_storage.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)

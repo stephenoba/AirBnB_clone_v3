@@ -3,12 +3,17 @@
 from datetime import datetime
 import inspect
 import models
-import pep8 as pycodestyle
 import time
 import unittest
 from unittest import mock
 BaseModel = models.base_model.BaseModel
 module_doc = models.base_model.__doc__
+
+check_pep8 = True
+try:
+    import pep8 as pycodestyle
+except ModuleNotFoundError:
+    check_pep8 = False
 
 
 class TestBaseModelDocs(unittest.TestCase):
@@ -19,6 +24,7 @@ class TestBaseModelDocs(unittest.TestCase):
         """Set up for docstring tests"""
         self.base_funcs = inspect.getmembers(BaseModel, inspect.isfunction)
 
+    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
     def test_pep8_conformance(self):
         """Test that models/base_model.py conforms to PEP8."""
         for path in ['models/base_model.py',
@@ -82,14 +88,14 @@ class TestBaseModel(unittest.TestCase):
         """Test that two BaseModel instances have different datetime objects
         and that upon creation have identical updated_at and created_at
         value."""
-        tic = datetime.now()
+        tic = datetime.utcnow()
         inst1 = BaseModel()
-        toc = datetime.now()
+        toc = datetime.utcnow()
         self.assertTrue(tic <= inst1.created_at <= toc)
         time.sleep(1e-4)
-        tic = datetime.now()
+        tic = datetime.utcnow()
         inst2 = BaseModel()
-        toc = datetime.now()
+        toc = datetime.utcnow()
         self.assertTrue(tic <= inst2.created_at <= toc)
         self.assertEqual(inst1.created_at, inst1.updated_at)
         self.assertEqual(inst2.created_at, inst2.updated_at)

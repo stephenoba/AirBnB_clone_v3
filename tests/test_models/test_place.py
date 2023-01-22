@@ -8,9 +8,14 @@ import inspect
 import models
 from models import place
 from models.base_model import BaseModel
-import pep8
 import unittest
 Place = place.Place
+
+check_pep8 = True
+try:
+    import pep8
+except ModuleNotFoundError:
+    check_pep8 = False
 
 
 class TestPlaceDocs(unittest.TestCase):
@@ -20,6 +25,7 @@ class TestPlaceDocs(unittest.TestCase):
         """Set up for the doc tests"""
         cls.place_f = inspect.getmembers(Place, inspect.isfunction)
 
+    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
     def test_pep8_conformance_place(self):
         """Test that models/place.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
@@ -27,6 +33,7 @@ class TestPlaceDocs(unittest.TestCase):
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
+    @unittest.skipIf(check_pep8 == False, "pep8 module not installed")
     def test_pep8_conformance_test_place(self):
         """Test that tests/test_models/test_place.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
