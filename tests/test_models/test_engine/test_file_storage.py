@@ -120,3 +120,39 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get(self):
+        """Test the get method"""
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_string_class(self):
+        """Test get when class argument is string"""
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_not_exist(self):
+        """Test get when id does not exist"""
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_invalid_id_type(self):
+        """Test get with invalide id type"""
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_invalid_cls(self):
+        """Test get when class is invalid"""
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count(self):
+        """Test count method"""
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_no_class(self):
+        """TEst count when class is None"""
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_string_class(self):
+        """test count when class argument is of type string"""
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_invalid_argument(self):
+        """Test count with invalid argument"""
