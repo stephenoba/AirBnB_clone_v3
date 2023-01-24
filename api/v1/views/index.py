@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """index.py to connect to API"""
 from flask import jsonify
 

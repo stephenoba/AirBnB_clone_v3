@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""flask app"""
 import os
 
 from flask import Flask
