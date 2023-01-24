@@ -6,7 +6,14 @@ from models import storage
 from api.v1.views import app_views
 
 
-entities = ["Amenity", "City", "Place", "Review", "State", "User"]
+entities = {
+    "amenities": "Amenity",
+    "cities": "City",
+    "places": "Place",
+    "reviews": "Review",
+    "states": "State",
+    "users": "User"
+}
 
 
 @app_views.route('/status', strict_slashes=False)
@@ -19,8 +26,8 @@ def getStatus():
 def getStats():
     """Get stats"""
     res = {}
-    for e in entities:
-        res[e.lower()] = storage.count(e)
+    for k, v in entities.items():
+        res[k] = storage.count(v)
     return jsonify(res)
 
 
