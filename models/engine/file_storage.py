@@ -35,23 +35,25 @@ class FileStorage:
         return self.__objects
 
     def get(self, cls, id):
-        """Retrieve an object"""
-        if cls is not None and type(cls) is str and id is not None and\
-           type(id) is str and cls in classes:
-            key = cls + '.' + id
-            obj = self.__objects.get(key, None)
-            return obj
-        else:
-            return None
+        """Get an object by id"""
+        objs = self.all(cls)
+        obj = None
+        try:
+            if type(cls) == str:
+                obj = objs["{}.{}".format(cls, id)]
+            else:
+                cls_str = list(filter(
+                        lambda x: classes[x] == cls,
+                        classes.keys()
+                ))
+                obj = objs["{}.{}".format(cls_str[0], id)]
+        except (KeyError, IndexError):
+            obj = None
+        return obj
 
     def count(self, cls=None):
         """Count number of objects in storage"""
-        total = 0
-        if type(cls) == str and cls in classes:
-            total = len(self.all(cls))
-        elif cls is None:
-            total = len(self.__objects)
-        return total
+        return len(self.all(cls))
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
